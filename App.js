@@ -21,8 +21,10 @@ import { Platform, StyleSheet, Text, View } from 'react-native'
 import { Button } from '@ant-design/react-native'
 
 // Stack Imports
-
-// Component imports
+import { ScheduleStack } from './components/stackNavigators/ScheduleStack'
+import { FavesStack } from './components/stackNavigators/FavesStack'
+import { MapStack } from './components/stackNavigators/MapStack'
+import { AboutStack } from './components/stackNavigators/AboutStack'
 
 // const instructions = Platform.select({
 // 	ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -30,6 +32,49 @@ import { Button } from '@ant-design/react-native'
 // })
 
 // declaring variables
+
+const AppContainer = createAppContainer(
+	createBottomTabNavigator(
+		{
+			Schedule: { screen: ScheduleStack },
+			Map: { screen: MapStack },
+			Faves: { screen: FavesStack },
+			About: { screen: AboutStack },
+		},
+		{
+			defaultNavigationOptions: ({ navigation }) => ({
+				tabBarIcon: ({ tintColor }) => {
+					const { routeName } = navigation.state
+					let IconComponent = Icons
+					let iconName
+					if (routeName === 'Schedule') {
+						iconName = `calendar`
+						// Sometimes we want to add badges to some icons.
+						// You can check the implementation below.
+						// IconComponent = HomeIconWithBadge
+					} else if (routeName === 'Map') {
+						iconName = `map`
+					} else if (routeName === 'Faves') {
+						iconName = `heart`
+					} else if (routeName === 'About') {
+						iconName = `info-circle`
+					}
+
+					// You can return any component that you like here!
+					return <IconComponent name={iconName} size={25} color={tintColor} />
+				},
+			}),
+			tabBarOptions: {
+				activeTintColor: '#ffffff',
+				inactiveTintColor: '#999999',
+				style: {
+					backgroundColor: '#000000',
+					minHeight: '10%',
+				},
+			},
+		}
+	)
+)
 
 // const AppContainer = createAppContainer(
 // 	createBottomTabNavigator(
@@ -70,16 +115,38 @@ import { Button } from '@ant-design/react-native'
 // 	)
 // )
 
+// class HomeScreen extends React.Component {
+// 	render() {
+// 		return (
+// 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+// 				<Text>Home!</Text>
+// 			</View>
+// 		)
+// 	}
+// }
+
+// class SettingsScreen extends React.Component {
+// 	render() {
+// 		return (
+// 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+// 				<Text>Settings!</Text>
+// 			</View>
+// 		)
+// 	}
+// }
+
+// const TabNavigator = createBottomTabNavigator({
+// 	Home: HomeScreen,
+// 	Settings: SettingsScreen,
+// })
+
+// const AppContainer = createAppContainer(TabNavigator)
+
 const App = () => {
 	return (
 		<ApolloProvider client={apolloClient}>
 			<ApolloHooksProvider client={apolloClient}>
-				<View style={styles.container}>
-					<Text style={styles.welcome}>Welcome to React Native!</Text>
-					<Text style={styles.instructions}>To get started, edit App.js</Text>
-					{/* <Text style={styles.instructions}>{instructions}</Text> */}
-					<Button type='primary'>Hello World!</Button>
-				</View>
+				<AppContainer />
 			</ApolloHooksProvider>
 		</ApolloProvider>
 	)
