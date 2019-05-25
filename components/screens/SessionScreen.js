@@ -7,7 +7,14 @@ import { StyleSheet, View, Text } from 'react-native'
 // CSS & Style imports
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-const SessionScreen = () => {
+const SessionScreen = props => {
+	navigation = props
+	navigationOptions = navigation => {
+		return {
+			title: navigation.getParam('title'),
+		}
+	}
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.welcome}>This will be the Session Screen!</Text>
@@ -27,6 +34,9 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		textAlign: 'center',
 		margin: 10,
+	},
+	iconButton: {
+		marginTop: 30,
 	},
 })
 
