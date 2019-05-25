@@ -7,7 +7,11 @@ import { StyleSheet, View, Text } from 'react-native'
 // CSS & Style imports
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-const AboutScreen = () => {
+const AboutScreen = props => {
+	navigationOptions = {
+		title: 'About',
+		/* No more header config here! */
+	}
 	return (
 		<View style={styles.container}>
 			<Text style={styles.welcome}>This will be the About screen!</Text>

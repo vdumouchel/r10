@@ -7,7 +7,7 @@ import { StyleSheet, View, Text } from 'react-native'
 // CSS & Style imports
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-const MapScreen = () => {
+const MapScreen = props => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.welcome}>This will be the Map!</Text>
