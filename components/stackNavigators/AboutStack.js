@@ -34,7 +34,7 @@ export const AboutStack = createStackNavigator(
 			headerTitleStyle: { color: '#fff' },
 		},
 		navigationOptions: {
-			tabBarLabel: 'About!',
+			tabBarLabel: 'About',
 		},
 	}
 )

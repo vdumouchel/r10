@@ -25,7 +25,7 @@ export const MapStack = createStackNavigator(
 			headerTitleStyle: { color: '#fff' },
 		},
 		navigationOptions: {
-			tabBarLabel: 'Map!',
+			tabBarLabel: 'Map',
 		},
 	}
 )
