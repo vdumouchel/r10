@@ -2,10 +2,15 @@
 import React from 'react'
 
 // react-native imports
-import { StyleSheet, View, Text } from 'react-native'
+import { View } from 'react-native'
+import styles from '../../assets/styles/styles'
+import Text from '../../assets/styles/defaultText'
 
 // CSS & Style imports
 import Icon from 'react-native-vector-icons/FontAwesome5'
+
+// component imports
+import AboutAccordion from '../interactive/AboutAccordion'
 
 const AboutScreen = props => {
 	navigationOptions = {
@@ -14,24 +19,26 @@ const AboutScreen = props => {
 	}
 	return (
 		<View style={styles.container}>
-			<Text style={styles.welcome}>This will be the About screen!</Text>
-			<Icon name='info-circle' size={30} color='#900' />
+			<Text style={styles.r10}>&#60;R10&#62;</Text>
+			<View style={styles.horizontalRule} />
+			<View>
+				<Text style={styles.p}>R10 is a conference that focuses on just about any topics related to dev.</Text>
+			</View>
+			<View style={styles.marginHeader}>
+				<Text style={styles.h3}>Dates & Venues</Text>
+			</View>
+			<View>
+				<Text style={styles.p}>The R10 conference will take place on Tuesday, June 27, 2017 in Vancouver, BC.</Text>
+			</View>
+			<View style={styles.marginHeader}>
+				<Text style={styles.h3}>Code of Conduct</Text>
+			</View>
+			<View>
+				<AboutAccordion />
+			</View>
+			{/* <Icon name='info-circle' size={30} color='#900' /> */}
 		</View>
 	)
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#F5FCFF',
-	},
-	welcome: {
-		fontSize: 20,
-		textAlign: 'center',
-		margin: 10,
-	},
-})
 
 export default AboutScreen

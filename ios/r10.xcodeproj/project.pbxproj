@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -62,6 +61,9 @@
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 		EFA64E3123414212AF42A063 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E49E171807EF40F19842ECD4 /* FontAwesome5_Brands.ttf */; };
 		FB53D3E088A045858683198D /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4250565BCCDB42A98D1706E4 /* libRNGestureHandler.a */; };
+		B998E16C884148669E2B330C /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A31E7DE077E4D5CAD194B96 /* Montserrat-Light.ttf */; };
+		FA5D23960F284421BD22C932 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D906248E19834A079F79410D /* Montserrat-Regular.ttf */; };
+		B7B634C456DD4D16886383E9 /* BurbankBigRegular-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 351A172B5E094CA8B75B908B /* BurbankBigRegular-Black.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -436,6 +438,9 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EE110BAE0FCA403B86B4550A /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		F09BDAA2C9264FCAB12155D5 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		2A31E7DE077E4D5CAD194B96 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; name = "Montserrat-Light.ttf"; path = "../assets/fonts/Montserrat-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D906248E19834A079F79410D /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		351A172B5E094CA8B75B908B /* BurbankBigRegular-Black.otf */ = {isa = PBXFileReference; name = "BurbankBigRegular-Black.otf"; path = "../assets/fonts/BurbankBigRegular-Black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -645,6 +650,9 @@
 				EE110BAE0FCA403B86B4550A /* Zocial.ttf */,
 				1AD89473399E4501B833AAF6 /* antfill.ttf */,
 				560364F2839945C9A76F8F9A /* antoutline.ttf */,
+				2A31E7DE077E4D5CAD194B96 /* Montserrat-Light.ttf */,
+				D906248E19834A079F79410D /* Montserrat-Regular.ttf */,
+				351A172B5E094CA8B75B908B /* BurbankBigRegular-Black.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1291,6 +1299,9 @@
 				979616EB48E14551A070D662 /* Zocial.ttf in Resources */,
 				068B34CD19DC4EB4821B9AB4 /* antfill.ttf in Resources */,
 				A3EEEA79B0B447F2AB8B8D80 /* antoutline.ttf in Resources */,
+				B998E16C884148669E2B330C /* Montserrat-Light.ttf in Resources */,
+				FA5D23960F284421BD22C932 /* Montserrat-Regular.ttf in Resources */,
+				B7B634C456DD4D16886383E9 /* BurbankBigRegular-Black.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

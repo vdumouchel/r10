@@ -44,7 +44,7 @@ export const ScheduleStack = createStackNavigator(
 			},
 		},
 		navigationOptions: {
-			tabBarLabel: 'Schedule!',
+			tabBarLabel: 'Schedule',
 		},
 	}
 )

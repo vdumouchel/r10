@@ -44,7 +44,7 @@ export const FavesStack = createStackNavigator(
 			},
 		},
 		navigationOptions: {
-			tabBarLabel: 'Faves!',
+			tabBarLabel: 'Faves',
 		},
 	}
 )
