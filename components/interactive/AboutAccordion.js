@@ -1,62 +1,29 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
+
+// packages imports
+import gql from 'graphql-tag'
+import { useQuery } from 'react-apollo-hooks'
+
+// CSS & Styles imports
 import { View, Text } from 'react-native'
 import Accordion from 'react-native-collapsible/Accordion'
 import styles from '../../assets/styles/styles'
 
 import Icons from 'react-native-vector-icons/FontAwesome5'
 
-const SECTIONS = [
+const allConducts = gql`
 	{
-		title: 'Purpose',
-		content:
-			'R10 believes our community should be truly open for everyone. As such, we are committed to providinga friendly, safe and welcoming environment for all, regardless of gender, sexual orientation, disability, ethnicity, religion and preferred ice cream flavour.',
-	},
-	{
-		title: 'Open Source Citizenship',
-		content:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	},
-	{
-		title: 'Expected Behaviour',
-		content:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	},
-	{
-		title: 'Unacceptable Behaviour',
-		content:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	},
-	{
-		title: 'Consequences of Unacceptable Behaviour',
-		content:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	},
-	{
-		title: 'What To Do If You Witness Or Are Subject To Unacceptable Behaviour',
-		content:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	},
-	{
-		title: 'Scope',
-		content:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	},
-	{
-		title: 'Contact Information',
-		content:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	},
-	{
-		title: 'License and Attribution',
-		content:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	},
-]
-
-export default class AboutAccordion extends Component {
-	state = {
-		activeSections: [],
+		allConducts {
+			id
+			title
+			description
+			order
+		}
 	}
+`
+
+const AboutAccordion = props => {
+	const [section, setSection] = useState([])
 
 	_renderHeader = (section, index, isActive) => {
 		return (
@@ -73,25 +40,32 @@ export default class AboutAccordion extends Component {
 	_renderContent = section => {
 		return (
 			<View style={styles.content}>
-				<Text style={styles.accordionContent}>{section.content}</Text>
+				<Text style={styles.accordionContent}>{section.description}</Text>
 			</View>
 		)
 	}
 
 	_updateSections = activeSections => {
-		this.setState({ activeSections })
+		setSection(activeSections)
 	}
 
-	render() {
-		return (
-			<Accordion
-				sections={SECTIONS}
-				activeSections={this.state.activeSections}
-				renderHeader={this._renderHeader}
-				renderContent={this._renderContent}
-				onChange={this._updateSections}
-				underlayColor={'#fff'}
-			/>
-		)
+	const { data, error, loading } = useQuery(allConducts)
+	if (loading) {
+		return <Text>Loading...</Text>
 	}
+	if (error) {
+		return <Text>Error! {error.message}</Text>
+	}
+	return (
+		<Accordion
+			sections={data.allConducts}
+			activeSections={section}
+			renderHeader={_renderHeader}
+			renderContent={_renderContent}
+			onChange={_updateSections}
+			underlayColor={'#fff'}
+		/>
+	)
 }
+
+export default AboutAccordion

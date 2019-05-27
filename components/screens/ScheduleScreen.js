@@ -1,11 +1,29 @@
 // basic React import
-import React from 'react'
+import React, { useState } from 'react'
+
+//packages imports
+import gql from 'graphql-tag'
+import { useQuery } from 'react-apollo-hooks'
 
 // react-native imports
 import { StyleSheet, View, Text } from 'react-native'
+import styles from '../../assets/styles/styles'
 
 // CSS & Style imports
 import Icon from 'react-native-vector-icons/FontAwesome5'
+
+const allSessions = gql`
+	{
+		allSessions {
+			id
+			title
+			description
+			location
+			speaker
+			startTime
+		}
+	}
+`
 
 const ScheduleScreen = props => {
 	return (
@@ -34,22 +52,5 @@ const ScheduleScreen = props => {
 		</View>
 	)
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#FFFFFF',
-	},
-	welcome: {
-		fontSize: 20,
-		textAlign: 'center',
-		margin: 10,
-	},
-	iconButton: {
-		marginTop: 30,
-	},
-})
 
 export default ScheduleScreen
