@@ -17,8 +17,7 @@ import { createBottomTabNavigator, createAppContainer } from 'react-navigation'
 
 // CSS & Styles imports
 import Icons from 'react-native-vector-icons/FontAwesome5'
-import { Platform, StyleSheet, Text, View } from 'react-native'
-import { Button } from '@ant-design/react-native'
+import { StyleSheet } from 'react-native'
 
 // Stack Imports
 import { ScheduleStack } from './components/stackNavigators/ScheduleStack'
