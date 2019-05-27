@@ -1,33 +1,33 @@
 // basic React import
 import React from 'react'
-
+import MapView from 'react-native-maps'
 // react-native imports
-import { StyleSheet, View, Text } from 'react-native'
+import { Image } from 'react-native'
 
 // CSS & Style imports
-import Icon from 'react-native-vector-icons/FontAwesome5'
+
+import r10 from '../../assets/img/map_pin.png'
 
 const MapScreen = props => {
 	return (
-		<View style={styles.container}>
-			<Text style={styles.welcome}>This will be the Map!</Text>
-			<Icon name='map' size={30} color='#900' />
-		</View>
+		<MapView
+			style={{ flex: 1 }}
+			initialRegion={{
+				latitude: 43.643884,
+				longitude: -79.397609,
+				latitudeDelta: 0.0082,
+				longitudeDelta: 0.0021,
+			}}
+		>
+			<MapView.Marker
+				coordinate={{ latitude: 43.643884, longitude: -79.397609 }}
+				title={'R10'}
+				description={'The best tech conference in the Six!'}
+			>
+				<Image source={r10} />
+			</MapView.Marker>
+		</MapView>
 	)
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#FFFFFF',
-	},
-	welcome: {
-		fontSize: 20,
-		textAlign: 'center',
-		margin: 10,
-	},
-})
 
 export default MapScreen
