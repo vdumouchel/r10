@@ -72,6 +72,35 @@ const styles = StyleSheet.create({
 		fontSize: 21,
 		marginHorizontal: 20,
 	},
+	scheduleTime: {
+		marginBottom: 5,
+		marginHorizontal: 0,
+		paddingLeft: 20,
+		paddingVertical: 5,
+		fontSize: 16,
+		fontFamily: 'Montserrat-Regular',
+		backgroundColor: '#E6E6E6'
+	},
+	scheduleTitle: {
+		marginVertical: 10,
+		marginHorizontal: 20,
+		fontSize: 18,
+		fontFamily: 'Montserrat-Regular'
+	},
+	scheduleLocation: {
+		marginBottom: 10,
+		marginLeft: 20,
+		fontSize: 16,
+		fontFamily: 'Montserrat-Regular',
+		color: '#999999',
+		borderBottomColor: '#E6E6E6',
+		borderBottomWidth: 1,
+	},
+	allWidthRuler: {
+		paddingTop: 5,
+		borderBottomColor: '#E6E6E6',
+		borderBottomWidth: 1,
+	},
 })
 
 export default styles
