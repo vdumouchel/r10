@@ -31,7 +31,7 @@ export const AboutStack = createStackNavigator(
 					end={{ x: 2, y: 1 }}
 				/>
 			),
-			headerTitleStyle: { color: '#fff' },
+			headerTitleStyle: { color: '#fff', fontFamily: 'Montserrat-Light' },
 		},
 		navigationOptions: {
 			tabBarLabel: 'About',
