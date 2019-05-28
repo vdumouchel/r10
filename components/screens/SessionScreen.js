@@ -81,7 +81,6 @@ const SessionScreen = props => {
 	if (error) {
 		return <Text>Error! {error.message}</Text>
 	}
-	console.log('this is dataThisSession: ', data.Session.speaker.image)
 
 	return (
 		<View style={styles.container}>
@@ -102,22 +101,17 @@ const SessionScreen = props => {
 					<Text style={styles.sessionPresentedBy}>Presented by:</Text>
 				</View>
 				<View>
-					<TouchableOpacity style={styles.sessionSpeaker}>
+					<TouchableOpacity style={styles.sessionSpeaker} onPress={() => {
+						console.log('this is dataSpeakerId: ', data.Session.speaker.id),
+							props.navigation.navigate('Speaker', {
+								speakerId: data.Session.speaker.id,
+							})
+					}}>
 						<Image source={{ uri: data.Session.speaker.image }} style={styles.sessionSpeakerImage}></Image>
 						<Text style={styles.sessionSpeakerText}>{data.Session.speaker.name}</Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.sessionHorizontalRuler} />
-				{/* <View style={styles.sessionFavesView}>
-					<TouchableOpacity style={styles.sessionFavesTouchable}>
-						<LinearGradient colors={['#C5414D', '#9963E9']}
-							start={{ x: 0, y: 0 }}
-							end={{ x: 2, y: 1 }}>
-							<Text style={styles.sessionFavesText}>
-								Add to Faves</Text>
-						</LinearGradient>
-					</TouchableOpacity> */}
-				{/* </View> */}
 				<View style={styles.sessionFavesContainer}>
 					<TouchableOpacity>
 						<LinearGradient colors={['#9963EA', '#8F80DF', '#8797D6']} style={styles.sessionFavesLinearGradient} start={{ x: 0, y: -0.4 }}

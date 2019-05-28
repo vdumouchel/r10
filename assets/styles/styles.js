@@ -162,11 +162,11 @@ const styles = StyleSheet.create({
 	sessionFavesLinearGradient: {
 		marginTop: 30,
 		paddingLeft: 15,
-		maxWidth: 230,
 		height: 50,
 		paddingRight: 15,
 		borderRadius: 50,
 		justifyContent: 'center',
+		marginBottom: 40,
 	},
 	sessionFavesButton: {
 		fontSize: 20,
@@ -174,6 +174,41 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: '#ffffff',
 		marginHorizontal: 10,
+	},
+	closeIcon: {
+		fontSize: 22,
+		color: '#fff',
+		marginLeft: 10,
+	},
+	speakerContainer: {
+		backgroundColor: '#000',
+		height: '100 %',
+	},
+	speakerCard: {
+		backgroundColor: '#ffffff',
+		borderRadius: 4,
+		marginTop: 30,
+		marginHorizontal: 20,
+		alignItems: 'center',
+	},
+	speakerImage: {
+		height: 100,
+		width: 100,
+		borderRadius: 100 / 2,
+		marginTop: 30,
+	},
+	speakerName: {
+		fontFamily: 'Montserrat-Regular',
+		fontSize: 28,
+		fontWeight: '500',
+		marginTop: 30,
+	},
+	speakerBio: {
+		fontFamily: 'Montserrat-Light',
+		fontSize: 18,
+		marginTop: 30,
+		marginHorizontal: 20,
+		lineHeight: 25,
 	},
 })
 
