@@ -101,6 +101,80 @@ const styles = StyleSheet.create({
 		borderBottomColor: '#E6E6E6',
 		borderBottomWidth: 1,
 	},
+	sessionContainer: {
+		marginHorizontal: 20,
+	},
+	sessionLocation: {
+		marginTop: 25,
+		fontFamily: 'Montserrat-Regular',
+		color: '#999999',
+		fontSize: 18,
+	},
+	sessionTitle: {
+		marginTop: 20,
+		fontFamily: 'Montserrat-Regular',
+		fontWeight: '700',
+		fontSize: 30,
+	},
+	sessionStartTime: {
+		marginTop: 20,
+		fontFamily: 'Montserrat-Regular',
+		color: '#CF392A',
+		fontSize: 18,
+	},
+	sessionDescription: {
+		marginTop: 20,
+		fontFamily: 'Montserrat-Light',
+		fontSize: 21,
+		lineHeight: 30,
+	},
+	sessionPresentedBy: {
+		marginTop: 30,
+		color: '#999999',
+		fontFamily: 'Montserrat-Regular',
+		fontSize: 18,
+	},
+	sessionSpeaker: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginTop: 20,
+	},
+	sessionSpeakerImage: {
+		height: 70,
+		width: 70,
+		borderRadius: 70 / 2,
+		marginRight: 20,
+	},
+	sessionSpeakerText: {
+		fontFamily: 'Montserrat-Regular',
+		fontWeight: '500',
+		fontSize: 18,
+	},
+	sessionHorizontalRuler: {
+		marginTop: 25,
+		borderBottomColor: '#E6E6E6',
+		borderBottomWidth: 1,
+	},
+	sessionFavesContainer: {
+		backgroundColor: 'transparent',
+		alignItems: 'center',
+	},
+	sessionFavesLinearGradient: {
+		marginTop: 30,
+		paddingLeft: 15,
+		maxWidth: 230,
+		height: 50,
+		paddingRight: 15,
+		borderRadius: 50,
+		justifyContent: 'center',
+	},
+	sessionFavesButton: {
+		fontSize: 20,
+		fontFamily: 'Montserrat-Regular',
+		textAlign: 'center',
+		color: '#ffffff',
+		marginHorizontal: 10,
+	},
 })
 
 export default styles
