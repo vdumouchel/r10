@@ -81,12 +81,22 @@ const styles = StyleSheet.create({
 		fontFamily: 'Montserrat-Regular',
 		backgroundColor: '#E6E6E6'
 	},
+	scheduleLocationContainer: {
+		flexDirection: 'row',
+		flexWrap: 'nowrap',
+		justifyContent: 'space-between',
+	},
+
 	scheduleTitle: {
 		marginVertical: 10,
 		marginHorizontal: 20,
-		fontSize: 18,
+		fontSize: 17,
 		fontFamily: 'Montserrat-Regular'
 	},
+	scheduleHeartContainer: {
+		marginRight: 20,
+	},
+
 	scheduleLocation: {
 		marginBottom: 10,
 		marginLeft: 20,
@@ -95,6 +105,9 @@ const styles = StyleSheet.create({
 		color: '#999999',
 		borderBottomColor: '#E6E6E6',
 		borderBottomWidth: 1,
+	},
+	scheduleHeart: {
+
 	},
 	allWidthRuler: {
 		paddingTop: 5,

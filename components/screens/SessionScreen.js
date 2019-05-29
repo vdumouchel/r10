@@ -19,8 +19,8 @@ import LinearGradient from 'react-native-linear-gradient';
 
 
 const Session = gql`
- query Session($sessionKey: ID!){
-   Session(id: $sessionKey ){
+ query Session($selectedSessionId: ID!){
+   Session(id: $selectedSessionId ){
     id
     title
     description
@@ -45,15 +45,13 @@ const Session = gql`
 
 const SessionScreen = props => {
 
-	// navigation options
-	navigation = props
-	navigationOptions = navigation => {
-		return {
-			title: navigation.getParam('title'),
-		}
-	}
+
+
+	const { navigation } = props
+	const selectedSessionId = navigation.getParam('selectedSessionId', 'No session Id Provided!')
+
 	// retrieve data from Async Storage
-	let [sessionKey, setSelectedSession] = useState('')
+	let [faves, setFaves] = useState('')
 
 	useEffect(() => {
 		_retrieveData()
@@ -61,20 +59,22 @@ const SessionScreen = props => {
 
 	_retrieveData = async () => {
 		try {
-			var tempKey = await AsyncStorage.getItem('selectedSession')
-			setSelectedSession(tempKey)
-			if (tempKey !== null) {
-				console.log('this is sessionKey: ', tempKey)
-				return tempKey
+			let tempFaves = await AsyncStorage.getItem('faves')
+			let parsedFaves = JSON.parse(tempFaves)
+			setFaves(parsedFaves)
+			if (parsedFaves !== null) {
+				console.log('this is SessionScreen parsedFaves: ', parsedFaves)
+				return parsedFaves
+			} else {
+				console.log('this is SessionScreen parsedFaves: ', parsedFaves)
 			}
 		} catch (e) {
 			throw e.message
 		}
 	}
-	console.log("SessionKey: ", sessionKey)
-	const { data, error, loading } = useQuery(Session, { variables: { sessionKey } })
-	// let dataThisSession = data.thisSession
-	// console.log('this is dataThisSession: ', dataThisSession)
+
+	const { data, error, loading } = useQuery(Session, { variables: { selectedSessionId } })
+
 	if (loading) {
 		return <Text>Loading...</Text>
 	}
@@ -102,10 +102,9 @@ const SessionScreen = props => {
 				</View>
 				<View>
 					<TouchableOpacity style={styles.sessionSpeaker} onPress={() => {
-						console.log('this is dataSpeakerId: ', data.Session.speaker.id),
-							props.navigation.navigate('Speaker', {
-								speakerId: data.Session.speaker.id,
-							})
+						props.navigation.navigate('Speaker', {
+							speakerId: data.Session.speaker.id,
+						})
 					}}>
 						<Image source={{ uri: data.Session.speaker.image }} style={styles.sessionSpeakerImage}></Image>
 						<Text style={styles.sessionSpeakerText}>{data.Session.speaker.name}</Text>
@@ -113,12 +112,37 @@ const SessionScreen = props => {
 				</View>
 				<View style={styles.sessionHorizontalRuler} />
 				<View style={styles.sessionFavesContainer}>
-					<TouchableOpacity>
+					<TouchableOpacity onPress={async () => {
+						try {
+							let faves = await AsyncStorage.getItem('faves')
+							if (faves != null) {
+								try {
+									let parsedFaves = JSON.parse(faves)
+									await parsedFaves.push(data.Session.id)
+									await AsyncStorage.setItem('faves', JSON.stringify(parsedFaves))
+									console.log('this is AsyncStorage AddToFaves data.Session.id: ', JSON.stringify(parsedFaves))
+								} catch (e) {
+									throw e.message
+								}
+							} else {
+								try {
+									let newFavesArray = []
+									await newFavesArray.push(data.Session.id)
+									await AsyncStorage.setItem('faves', JSON.stringify(newFavesArray))
+									console.log('this is AsyncStorage newFavesArray: ', JSON.stringify(newFavesArray))
+								} catch (e) {
+									throw e.message
+								}
+							}
+						} catch (e) {
+							throw e.message
+						}
+					}} >
 						<LinearGradient colors={['#9963EA', '#8F80DF', '#8797D6']} style={styles.sessionFavesLinearGradient} start={{ x: 0, y: -0.4 }}
 							end={{ x: 1.2, y: 1.5 }}>
 							<Text style={styles.sessionFavesButton}>
 								Add to Faves
-              </Text>
+		          </Text>
 						</LinearGradient>
 					</TouchableOpacity>
 				</View>
