@@ -6,9 +6,11 @@ import gql from 'graphql-tag'
 import { useQuery } from 'react-apollo-hooks'
 import moment from 'moment-timezone'
 import AsyncStorage from '@react-native-community/async-storage'
+import { StackActions, NavigationActions } from 'react-navigation';
+
 
 // react-native imports
-import { ScrollView, View, Text, Image } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import styles from '../../assets/styles/styles'
 import _ from 'lodash'
 
@@ -45,7 +47,10 @@ const Session = gql`
 
 const SessionScreen = props => {
 
-
+	const resetAction = StackActions.reset({
+		index: 0,
+		actions: [NavigationActions.navigate({ routeName: 'Schedule' })],
+	});
 
 	const { navigation } = props
 	const selectedSessionId = navigation.getParam('selectedSessionId', 'No session Id Provided!')
@@ -128,6 +133,7 @@ const SessionScreen = props => {
 										await parsedFaves.splice(parsedFaves.indexOf(data.Session.id), 1)
 										await AsyncStorage.setItem('faves', JSON.stringify(parsedFaves))
 										console.log('this is AsyncStorage AddToFaves data.Session.id: ', JSON.stringify(parsedFaves))
+										props.navigation.dispatch(resetAction)
 									} catch (e) {
 										throw e.message
 									}
@@ -155,6 +161,7 @@ const SessionScreen = props => {
 										await parsedFaves.push(data.Session.id)
 										await AsyncStorage.setItem('faves', JSON.stringify(parsedFaves))
 										console.log('this is AsyncStorage AddToFaves data.Session.id: ', JSON.stringify(parsedFaves))
+										props.navigation.dispatch(resetAction)
 									} catch (e) {
 										throw e.message
 									}
@@ -164,6 +171,7 @@ const SessionScreen = props => {
 										await newFavesArray.push(data.Session.id)
 										await AsyncStorage.setItem('faves', JSON.stringify(newFavesArray))
 										console.log('this is AsyncStorage newFavesArray: ', JSON.stringify(newFavesArray))
+										props.navigation.dispatch(resetAction)
 									} catch (e) {
 										throw e.message
 									}
