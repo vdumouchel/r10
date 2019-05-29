@@ -1,5 +1,5 @@
 // basic React import
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 //packages imports
 import gql from 'graphql-tag'
@@ -13,7 +13,7 @@ import styles from '../../assets/styles/styles'
 import _ from 'lodash'
 
 // CSS & Style imports
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import Icon from 'react-native-vector-icons/AntDesign'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
@@ -30,25 +30,36 @@ const allSessions = gql`
 `
 
 const ScheduleScreen = props => {
-	// const [session, setSession] = useState([])
 
-	// _renderSessions = likedSession => {
-	// 	setSession(likedSession)
-	// }
+	// retrieve data from Async Storage
+	let [faves, setFaves] = useState('')
 
-	// _renderHeader = (session, index, isActive) => {
-	// 	return (
-	// 		<View>
-	// 			<Text>{session.startTime}</Text>
-	// 		</View>
-	// 	)
-	// }
+	useEffect(() => {
+		_retrieveData()
+	}, [])
+
+	_retrieveData = async () => {
+		try {
+			// let tempFaves = await AsyncStorage.clear()
+			let tempFaves = await AsyncStorage.getItem('faves')
+			let parsedFaves = JSON.parse(tempFaves)
+			setFaves(parsedFaves)
+			if (parsedFaves !== null) {
+				console.log('this is ScheduleScreen parsedFaves: ', parsedFaves)
+				return parsedFaves
+			} else {
+				console.log('this is ScheduleScreen parsedFaves: ', parsedFaves)
+			}
+
+		} catch (e) {
+			throw e.message
+		}
+	}
 
 	const { data, error, loading } = useQuery(allSessions)
 	let dataAllSessions = data.allSessions
 	let groups = _.groupBy(dataAllSessions, 'startTime')
 	let newArrayofGroups = (Object.values(groups))
-
 
 
 	if (loading) {
@@ -66,43 +77,45 @@ const ScheduleScreen = props => {
 							<Text style={styles.scheduleTime}>{moment(timeSlot[0].startTime).subtract(3, 'hours').format('LT')}</Text>
 							{timeSlot.map(session => (
 								<TouchableOpacity key={session.id} onPress={async () => {
-									try {
-										AsyncStorage.setItem('selectedSession', session.id)
-										console.log('this is AsyncStorage SelectedSession: ', session.id)
-
-									} catch (e) {
-										throw e.message
-									}
-									props.navigation.navigate('Session', {
-										title: 'Session',
+									await props.navigation.navigate('Session', {
+										selectedSessionId: session.id,
 									})
 								}}>
-									<Text style={styles.scheduleTitle}>{session.title}</Text>
-									<Text style={styles.scheduleLocation}>{session.location}</Text>
+									<Text style={styles.scheduleTitle}>{session.title}
+									</Text>
+									<View style={styles.scheduleLocationContainer}>
+										<Text style={styles.scheduleLocation}>{session.location}</Text>
+										<View style={styles.scheduleHeartContainer}>
+											{console.log('this is fav list ', faves)}
+											{console.log('this is session.id: ', session.id)}
+											{faves.includes(session.id) && <Icon name='heart' size={18} color="#CF392A" style={styles.scheduleHeart} />}
+										</View>
+									</View>
 								</TouchableOpacity>
 							))}
 						</View>
 					)
 				} else {
-
 					return (
 						<View style={styles.container} key={index}>
 							<Text style={styles.scheduleTime}>{moment(timeSlot[0].startTime).subtract(3, 'hours').format('LT')}</Text>
 							{timeSlot.map(session => (
 								<TouchableOpacity key={session.id} onPress={async () => {
-									try {
-										AsyncStorage.setItem('selectedSession', session.id)
-										console.log('this is AsyncStorage: ', session.id)
-
-									} catch (e) {
-										throw e.message
-									}
+									console.log('this is ScheduleScreen session.id:', session.id)
 									props.navigation.navigate('Session', {
-										title: 'Session',
+										selectedSessionId: session.id,
 									})
 								}} >
-									<Text style={styles.scheduleTitle}>{session.title}</Text>
-									<Text style={styles.scheduleLocation}>{session.location}</Text>
+									<Text style={styles.scheduleTitle}>{session.title}
+									</Text>
+									<View style={styles.scheduleLocationContainer}>
+										<Text style={styles.scheduleLocation}>{session.location}</Text>
+										<View style={styles.scheduleHeartContainer}>
+											{console.log('this is fav list ', faves)}
+											{console.log('this is session.id: ', session.id)}
+											{faves.includes(session.id) && <Icon name='heart' size={18} color="#CF392A" style={styles.scheduleHeart} />}
+										</View>
+									</View>
 									<View style={styles.allWidthRuler}></View>
 								</TouchableOpacity>
 							))}
