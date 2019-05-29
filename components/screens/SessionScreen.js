@@ -85,8 +85,13 @@ const SessionScreen = props => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.sessionContainer}>
-				<View>
+				<View style={styles.sessionLocationContainer}>
 					<Text style={styles.sessionLocation}>{data.Session.location}</Text>
+					<View style={styles.sessionHeartContainer}>
+						{console.log('this is fav list ', faves)}
+						{console.log('this is session.id: ', data.Session.id)}
+						{faves.includes(data.Session.id) && <Icon name='heart' size={18} color="#CF392A" style={styles.sessionHeart} />}
+					</View>
 				</View>
 				<View>
 					<Text style={styles.sessionTitle}>{data.Session.title}</Text>

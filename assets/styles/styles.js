@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
 	scheduleHeartContainer: {
 		marginRight: 20,
 	},
-
 	scheduleLocation: {
 		marginBottom: 10,
 		marginLeft: 20,
@@ -106,9 +105,6 @@ const styles = StyleSheet.create({
 		borderBottomColor: '#E6E6E6',
 		borderBottomWidth: 1,
 	},
-	scheduleHeart: {
-
-	},
 	allWidthRuler: {
 		paddingTop: 5,
 		borderBottomColor: '#E6E6E6',
@@ -117,11 +113,23 @@ const styles = StyleSheet.create({
 	sessionContainer: {
 		marginHorizontal: 20,
 	},
+	sessionLocationContainer: {
+		flexDirection: 'row',
+		flexWrap: 'nowrap',
+		justifyContent: 'space-between',
+	},
 	sessionLocation: {
 		marginTop: 25,
 		fontFamily: 'Montserrat-Regular',
 		color: '#999999',
 		fontSize: 18,
+	},
+	sessionHeartContainer: {
+		marginRight: 20,
+	},
+	sessionHeart: {
+		marginTop: 25,
+		marginRight: -10,
 	},
 	sessionTitle: {
 		marginTop: 20,
