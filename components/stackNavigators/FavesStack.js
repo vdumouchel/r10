@@ -43,6 +43,7 @@ export const FavesStack = createStackNavigator(
 				headerStyle: {
 					color: '#fff',
 					backgroundColor: '#000',
+					borderBottomWidth: 0,
 				},
 				headerTitleStyle: {
 					fontFamily: 'Montserrat-Light'
