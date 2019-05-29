@@ -117,39 +117,69 @@ const SessionScreen = props => {
 				</View>
 				<View style={styles.sessionHorizontalRuler} />
 				<View style={styles.sessionFavesContainer}>
-					<TouchableOpacity onPress={async () => {
-						try {
-							let faves = await AsyncStorage.getItem('faves')
-							if (faves != null) {
-								try {
-									let parsedFaves = JSON.parse(faves)
-									await parsedFaves.push(data.Session.id)
-									await AsyncStorage.setItem('faves', JSON.stringify(parsedFaves))
-									console.log('this is AsyncStorage AddToFaves data.Session.id: ', JSON.stringify(parsedFaves))
-								} catch (e) {
-									throw e.message
+					{faves.includes(data.Session.id) ?
+						// if TRUE , then TouchableOpacity provides a Remove from Faves Button
+						<TouchableOpacity onPress={async () => {
+							try {
+								let faves = await AsyncStorage.getItem('faves')
+								if (faves != null) {
+									try {
+										let parsedFaves = JSON.parse(faves)
+										await parsedFaves.splice(parsedFaves.indexOf(data.Session.id), 1)
+										await AsyncStorage.setItem('faves', JSON.stringify(parsedFaves))
+										console.log('this is AsyncStorage AddToFaves data.Session.id: ', JSON.stringify(parsedFaves))
+									} catch (e) {
+										throw e.message
+									}
 								}
-							} else {
-								try {
-									let newFavesArray = []
-									await newFavesArray.push(data.Session.id)
-									await AsyncStorage.setItem('faves', JSON.stringify(newFavesArray))
-									console.log('this is AsyncStorage newFavesArray: ', JSON.stringify(newFavesArray))
-								} catch (e) {
-									throw e.message
-								}
+							} catch (e) {
+								throw e.message
 							}
-						} catch (e) {
-							throw e.message
-						}
-					}} >
-						<LinearGradient colors={['#9963EA', '#8F80DF', '#8797D6']} style={styles.sessionFavesLinearGradient} start={{ x: 0, y: -0.4 }}
-							end={{ x: 1.2, y: 1.5 }}>
-							<Text style={styles.sessionFavesButton}>
-								Add to Faves
+						}} >
+							<LinearGradient colors={['#9963EA', '#8F80DF', '#8797D6']} style={styles.sessionFavesLinearGradient} start={{ x: 0, y: -0.4 }}
+								end={{ x: 1.2, y: 1.5 }}>
+								<Text style={styles.sessionFavesButton}>
+									Remove from Faves
+										</Text>
+							</LinearGradient>
+						</TouchableOpacity>
+						// condition
+						:
+						// if FALSE, TouchableOpacity provides a Add to Faves Button
+						<TouchableOpacity onPress={async () => {
+							try {
+								let faves = await AsyncStorage.getItem('faves')
+								if (faves != null) {
+									try {
+										let parsedFaves = JSON.parse(faves)
+										await parsedFaves.push(data.Session.id)
+										await AsyncStorage.setItem('faves', JSON.stringify(parsedFaves))
+										console.log('this is AsyncStorage AddToFaves data.Session.id: ', JSON.stringify(parsedFaves))
+									} catch (e) {
+										throw e.message
+									}
+								} else {
+									try {
+										let newFavesArray = []
+										await newFavesArray.push(data.Session.id)
+										await AsyncStorage.setItem('faves', JSON.stringify(newFavesArray))
+										console.log('this is AsyncStorage newFavesArray: ', JSON.stringify(newFavesArray))
+									} catch (e) {
+										throw e.message
+									}
+								}
+							} catch (e) {
+								throw e.message
+							}
+						}} >
+							<LinearGradient colors={['#9963EA', '#8F80DF', '#8797D6']} style={styles.sessionFavesLinearGradient} start={{ x: 0, y: -0.4 }}
+								end={{ x: 1.2, y: 1.5 }}>
+								<Text style={styles.sessionFavesButton}>
+									Add to Faves
 		          </Text>
-						</LinearGradient>
-					</TouchableOpacity>
+							</LinearGradient>
+						</TouchableOpacity>
+					}
 				</View>
 			</View>
 		</View>
