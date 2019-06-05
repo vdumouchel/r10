@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import ScheduleScreen from '../screens/ScheduleScreen'
 import SessionScreen from '../screens/SessionScreen'
 import SpeakerScreen from '../screens/SpeakerScreen'
+import FavesScreen from '../screens/FavesScreen'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const ScheduleStack = createStackNavigator(
@@ -27,6 +28,12 @@ export const ScheduleStack = createStackNavigator(
 			screen: SessionScreen,
 			navigationOptions: {
 				headerTitle: 'Session',
+			},
+		},
+		Faves: {
+			screen: FavesScreen,
+			navigationOptions: {
+				headerTitle: 'Faves',
 			},
 		},
 		Speaker: {

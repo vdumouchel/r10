@@ -7,6 +7,7 @@ import { useQuery } from 'react-apollo-hooks'
 import moment from 'moment-timezone'
 import AsyncStorage from '@react-native-community/async-storage';
 
+
 // react-native imports
 import { ScrollView, View, Text } from 'react-native'
 import styles from '../../assets/styles/styles'
@@ -15,6 +16,8 @@ import _ from 'lodash'
 // CSS & Style imports
 import Icon from 'react-native-vector-icons/AntDesign'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+
 
 
 const allSessions = gql`
@@ -30,9 +33,13 @@ const allSessions = gql`
 `
 
 const ScheduleScreen = props => {
+	const { navigation } = props
+	const Update = navigation.getParam('OnGoBack', 'No GoBack CallBack Provided!')
 
 	// retrieve data from Async Storage
-	let [faves, setFaves] = useState('')
+	let [isUpdated, setIsUpdated] = useState(false)
+	let [faves, setFaves] = useState([])
+
 
 	useEffect(() => {
 		_retrieveData()
@@ -42,8 +49,9 @@ const ScheduleScreen = props => {
 		try {
 			// let tempFaves = await AsyncStorage.clear()
 			let tempFaves = await AsyncStorage.getItem('faves')
-			let parsedFaves = JSON.parse(tempFaves)
+			let parsedFaves = JSON.parse(tempFaves) || []
 			setFaves(parsedFaves)
+			console.log("state set")
 			if (parsedFaves !== null) {
 				console.log('this is ScheduleScreen parsedFaves: ', parsedFaves)
 				return parsedFaves
@@ -70,6 +78,7 @@ const ScheduleScreen = props => {
 	}
 	return (
 		<ScrollView>
+
 			{newArrayofGroups.map((timeSlot, index) => {
 				if (timeSlot.length === 1) {
 					return (
@@ -86,8 +95,6 @@ const ScheduleScreen = props => {
 									<View style={styles.scheduleLocationContainer}>
 										<Text style={styles.scheduleLocation}>{session.location}</Text>
 										<View style={styles.scheduleHeartContainer}>
-											{console.log('this is fav list ', faves)}
-											{console.log('this is session.id: ', session.id)}
 											{faves.includes(session.id) && <Icon name='heart' size={18} color="#CF392A" style={styles.scheduleHeart} />}
 										</View>
 									</View>
@@ -111,8 +118,6 @@ const ScheduleScreen = props => {
 									<View style={styles.scheduleLocationContainer}>
 										<Text style={styles.scheduleLocation}>{session.location}</Text>
 										<View style={styles.scheduleHeartContainer}>
-											{console.log('this is fav list ', faves)}
-											{console.log('this is session.id: ', session.id)}
 											{faves.includes(session.id) && <Icon name='heart' size={18} color="#CF392A" style={styles.scheduleHeart} />}
 										</View>
 									</View>
