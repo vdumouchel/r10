@@ -10,7 +10,7 @@ import { StackActions, NavigationActions } from 'react-navigation';
 
 
 // react-native imports
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, ScrollView } from 'react-native'
 import styles from '../../assets/styles/styles'
 import _ from 'lodash'
 
@@ -88,109 +88,111 @@ const SessionScreen = props => {
 	}
 
 	return (
-		<View style={styles.container}>
-			<View style={styles.sessionContainer}>
-				<View style={styles.sessionLocationContainer}>
-					<Text style={styles.sessionLocation}>{data.Session.location}</Text>
-					<View style={styles.sessionHeartContainer}>
-						{console.log('this is fav list ', faves)}
-						{console.log('this is session.id: ', data.Session.id)}
-						{faves.includes(data.Session.id) && <Icon name='heart' size={18} color="#CF392A" style={styles.sessionHeart} />}
+		<ScrollView>
+			<View style={styles.container}>
+				<View style={styles.sessionContainer}>
+					<View style={styles.sessionLocationContainer}>
+						<Text style={styles.sessionLocation}>{data.Session.location}</Text>
+						<View style={styles.sessionHeartContainer}>
+							{console.log('this is fav list ', faves)}
+							{console.log('this is session.id: ', data.Session.id)}
+							{faves.includes(data.Session.id) && <Icon name='heart' size={18} color="#CF392A" style={styles.sessionHeart} />}
+						</View>
+					</View>
+					<View>
+						<Text style={styles.sessionTitle}>{data.Session.title}</Text>
+					</View>
+					<View>
+						<Text style={styles.sessionStartTime}>{moment(data.Session.startTime).subtract(3, 'hours').format('LT')}</Text>
+					</View>
+					<View>
+						<Text style={styles.sessionDescription}>{data.Session.description}</Text>
+					</View>
+					<View>
+						<Text style={styles.sessionPresentedBy}>Presented by:</Text>
+					</View>
+					<View>
+						<TouchableOpacity style={styles.sessionSpeaker} onPress={() => {
+							props.navigation.navigate('Speaker', {
+								speakerId: data.Session.speaker.id,
+							})
+						}}>
+							<Image source={{ uri: data.Session.speaker.image }} style={styles.sessionSpeakerImage}></Image>
+							<Text style={styles.sessionSpeakerText}>{data.Session.speaker.name}</Text>
+						</TouchableOpacity>
+					</View>
+					<View style={styles.sessionHorizontalRuler} />
+					<View style={styles.sessionFavesContainer}>
+						{faves.includes(data.Session.id) ?
+							// if TRUE , then TouchableOpacity provides a Remove from Faves Button
+							<TouchableOpacity onPress={async () => {
+								try {
+									let faves = await AsyncStorage.getItem('faves')
+									if (faves != null) {
+										try {
+											let parsedFaves = JSON.parse(faves)
+											await parsedFaves.splice(parsedFaves.indexOf(data.Session.id), 1)
+											await AsyncStorage.setItem('faves', JSON.stringify(parsedFaves))
+											console.log('this is AsyncStorage AddToFaves data.Session.id: ', JSON.stringify(parsedFaves))
+											props.navigation.dispatch(resetAction)
+										} catch (e) {
+											throw e.message
+										}
+									}
+								} catch (e) {
+									throw e.message
+								}
+							}} >
+								<LinearGradient colors={['#9963EA', '#8F80DF', '#8797D6']} style={styles.sessionFavesLinearGradient} start={{ x: 0, y: -0.4 }}
+									end={{ x: 1.2, y: 1.5 }}>
+									<Text style={styles.sessionFavesButton}>
+										Remove from Faves
+										</Text>
+								</LinearGradient>
+							</TouchableOpacity>
+							// condition
+							:
+							// if FALSE, TouchableOpacity provides a Add to Faves Button
+							<TouchableOpacity onPress={async () => {
+								try {
+									let faves = await AsyncStorage.getItem('faves')
+									if (faves != null) {
+										try {
+											let parsedFaves = JSON.parse(faves)
+											await parsedFaves.push(data.Session.id)
+											await AsyncStorage.setItem('faves', JSON.stringify(parsedFaves))
+											console.log('this is AsyncStorage AddToFaves data.Session.id: ', JSON.stringify(parsedFaves))
+											props.navigation.dispatch(resetAction)
+										} catch (e) {
+											throw e.message
+										}
+									} else {
+										try {
+											let newFavesArray = []
+											await newFavesArray.push(data.Session.id)
+											await AsyncStorage.setItem('faves', JSON.stringify(newFavesArray))
+											console.log('this is AsyncStorage newFavesArray: ', JSON.stringify(newFavesArray))
+											props.navigation.dispatch(resetAction)
+										} catch (e) {
+											throw e.message
+										}
+									}
+								} catch (e) {
+									throw e.message
+								}
+							}} >
+								<LinearGradient colors={['#9963EA', '#8F80DF', '#8797D6']} style={styles.sessionFavesLinearGradient} start={{ x: 0, y: -0.4 }}
+									end={{ x: 1.2, y: 1.5 }}>
+									<Text style={styles.sessionFavesButton}>
+										Add to Faves
+		          </Text>
+								</LinearGradient>
+							</TouchableOpacity>
+						}
 					</View>
 				</View>
-				<View>
-					<Text style={styles.sessionTitle}>{data.Session.title}</Text>
-				</View>
-				<View>
-					<Text style={styles.sessionStartTime}>{moment(data.Session.startTime).subtract(3, 'hours').format('LT')}</Text>
-				</View>
-				<View>
-					<Text style={styles.sessionDescription}>{data.Session.description}</Text>
-				</View>
-				<View>
-					<Text style={styles.sessionPresentedBy}>Presented by:</Text>
-				</View>
-				<View>
-					<TouchableOpacity style={styles.sessionSpeaker} onPress={() => {
-						props.navigation.navigate('Speaker', {
-							speakerId: data.Session.speaker.id,
-						})
-					}}>
-						<Image source={{ uri: data.Session.speaker.image }} style={styles.sessionSpeakerImage}></Image>
-						<Text style={styles.sessionSpeakerText}>{data.Session.speaker.name}</Text>
-					</TouchableOpacity>
-				</View>
-				<View style={styles.sessionHorizontalRuler} />
-				<View style={styles.sessionFavesContainer}>
-					{faves.includes(data.Session.id) ?
-						// if TRUE , then TouchableOpacity provides a Remove from Faves Button
-						<TouchableOpacity onPress={async () => {
-							try {
-								let faves = await AsyncStorage.getItem('faves')
-								if (faves != null) {
-									try {
-										let parsedFaves = JSON.parse(faves)
-										await parsedFaves.splice(parsedFaves.indexOf(data.Session.id), 1)
-										await AsyncStorage.setItem('faves', JSON.stringify(parsedFaves))
-										console.log('this is AsyncStorage AddToFaves data.Session.id: ', JSON.stringify(parsedFaves))
-										props.navigation.dispatch(resetAction)
-									} catch (e) {
-										throw e.message
-									}
-								}
-							} catch (e) {
-								throw e.message
-							}
-						}} >
-							<LinearGradient colors={['#9963EA', '#8F80DF', '#8797D6']} style={styles.sessionFavesLinearGradient} start={{ x: 0, y: -0.4 }}
-								end={{ x: 1.2, y: 1.5 }}>
-								<Text style={styles.sessionFavesButton}>
-									Remove from Faves
-										</Text>
-							</LinearGradient>
-						</TouchableOpacity>
-						// condition
-						:
-						// if FALSE, TouchableOpacity provides a Add to Faves Button
-						<TouchableOpacity onPress={async () => {
-							try {
-								let faves = await AsyncStorage.getItem('faves')
-								if (faves != null) {
-									try {
-										let parsedFaves = JSON.parse(faves)
-										await parsedFaves.push(data.Session.id)
-										await AsyncStorage.setItem('faves', JSON.stringify(parsedFaves))
-										console.log('this is AsyncStorage AddToFaves data.Session.id: ', JSON.stringify(parsedFaves))
-										props.navigation.dispatch(resetAction)
-									} catch (e) {
-										throw e.message
-									}
-								} else {
-									try {
-										let newFavesArray = []
-										await newFavesArray.push(data.Session.id)
-										await AsyncStorage.setItem('faves', JSON.stringify(newFavesArray))
-										console.log('this is AsyncStorage newFavesArray: ', JSON.stringify(newFavesArray))
-										props.navigation.dispatch(resetAction)
-									} catch (e) {
-										throw e.message
-									}
-								}
-							} catch (e) {
-								throw e.message
-							}
-						}} >
-							<LinearGradient colors={['#9963EA', '#8F80DF', '#8797D6']} style={styles.sessionFavesLinearGradient} start={{ x: 0, y: -0.4 }}
-								end={{ x: 1.2, y: 1.5 }}>
-								<Text style={styles.sessionFavesButton}>
-									Add to Faves
-		          </Text>
-							</LinearGradient>
-						</TouchableOpacity>
-					}
-				</View>
 			</View>
-		</View>
+		</ScrollView>
 	)
 }
 
