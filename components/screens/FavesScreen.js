@@ -32,7 +32,7 @@ const allSessions = gql`
 const FavesScreen = props => {
 
 	// retrieve data from Async Storage
-	let [faves, setFaves] = useState('')
+	let [faves, setFaves] = useState([])
 
 	useEffect(() => {
 		_retrieveData()
@@ -42,7 +42,7 @@ const FavesScreen = props => {
 		try {
 			// let tempFaves = await AsyncStorage.clear()
 			let tempFaves = await AsyncStorage.getItem('faves')
-			let parsedFaves = JSON.parse(tempFaves)
+			let parsedFaves = JSON.parse(tempFaves) || []
 			setFaves(parsedFaves)
 			if (parsedFaves !== null) {
 				console.log('this is ScheduleScreen parsedFaves: ', parsedFaves)

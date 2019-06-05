@@ -16,7 +16,7 @@ import _ from 'lodash'
 // CSS & Style imports
 import Icon from 'react-native-vector-icons/AntDesign'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { updateExpression } from '@babel/types';
+
 
 
 
@@ -38,7 +38,7 @@ const ScheduleScreen = props => {
 
 	// retrieve data from Async Storage
 	let [isUpdated, setIsUpdated] = useState(false)
-	let [faves, setFaves] = useState('')
+	let [faves, setFaves] = useState([])
 
 
 	useEffect(() => {
@@ -49,7 +49,7 @@ const ScheduleScreen = props => {
 		try {
 			// let tempFaves = await AsyncStorage.clear()
 			let tempFaves = await AsyncStorage.getItem('faves')
-			let parsedFaves = JSON.parse(tempFaves)
+			let parsedFaves = JSON.parse(tempFaves) || []
 			setFaves(parsedFaves)
 			console.log("state set")
 			if (parsedFaves !== null) {

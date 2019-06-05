@@ -56,7 +56,7 @@ const SessionScreen = props => {
 	const selectedSessionId = navigation.getParam('selectedSessionId', 'No session Id Provided!')
 
 	// retrieve data from Async Storage
-	let [faves, setFaves] = useState('')
+	let [faves, setFaves] = useState([])
 
 	useEffect(() => {
 		_retrieveData()
@@ -65,7 +65,7 @@ const SessionScreen = props => {
 	_retrieveData = async () => {
 		try {
 			let tempFaves = await AsyncStorage.getItem('faves')
-			let parsedFaves = JSON.parse(tempFaves)
+			let parsedFaves = JSON.parse(tempFaves) || []
 			setFaves(parsedFaves)
 			if (parsedFaves !== null) {
 				console.log('this is SessionScreen parsedFaves: ', parsedFaves)
